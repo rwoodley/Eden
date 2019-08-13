@@ -46,6 +46,7 @@
 		<script src="r69/ImprovedNoise.js"></script>
 		<script src="r69/Detector.js"></script>
 		<script src="r69/Mirror.js"></script>
+		<script src="body/body.js"></script>
 		<script src="terrain/terrain_helper.js"></script>
 		<script src="terrain/terrain_taranaki.js"></script>
 
@@ -93,7 +94,10 @@
 				    iGlobalTime:    { type: 'f', value: 0.1 },
 				};
 
-				new Taranaki(_scene);
+				TERRAIN.builder('mt-taranaki.png', _scene);
+				body = new BODY.body('ba', new THREE.Vector3(100, 100, 100));
+				body = new BODY.body('ba', new THREE.Vector3(-100, 100, 100));
+				BODY.addAllToScene(_scene);
 
                 _renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -140,6 +144,7 @@
 			function animate() {
 
 				requestAnimationFrame( animate );
+				BODY.animateAll();
 
 				render();
 			}
