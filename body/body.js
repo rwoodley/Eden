@@ -1,19 +1,20 @@
 var BODY = {
     v: 1.0,
     bodies: [],
-    body: function(name, position) {
+    body: function(name, position, motor) {
         var self = this;
         var geometry = new THREE.SphereGeometry(50,50,50);
         var texture;
     
-        var material = new THREE.MeshNormalMaterial();
+        texture = THREE.ImageUtils.loadTexture('textures/bb8head.png');
+        var material = new THREE.MeshBasicMaterial({map: texture});
         this.mesh = new THREE.Mesh( geometry, material );
         this.mesh.position.set(position.x, position.y, position.z);
         this.camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 20000);
+        this.motor = motor;
         BODY.bodies.push(this);
         self.animate = function() {
-            self.mesh.position.x = self.mesh.position.x * 1.001;
-            self.camera.position = self.mesh.position;
+            self.motor.motivate(self);
         }
     }
 }
